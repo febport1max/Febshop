@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>潮壳 CHAOKE · 手机壳小店</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #131215;
+    --surface: #1c1a1f;
+    --surface-2: #232025;
+    --coral: #FF5A5F;
+    --lime: #D4FF3F;
+    --lilac: #B8A6FF;
+    --text: #F5F3EF;
+    --muted: #9A97A0;
+    --line: #322f36;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; -webkit-tap-highlight-color:transparent;}
+  body{ -webkit-font-smoothing:antialiased; }
+
+  /* ===== 顶部 ===== */
+  header{
+    padding: 44px 20px 28px;
+    position:relative;
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    color:var(--lime);
+    text-transform:uppercase;
+    margin-bottom:14px;
+    display:block;
+  }
+  h1{
+    font-family:'Archivo Black',sans-serif;
+    font-size:44px;
+    line-height:0.95;
+    letter-spacing:-0.01em;
+    margin-bottom:14px;
+  }
+  h1 span{color:var(--coral);}
+  header p.desc{
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.6;
+    max-width:34ch;
+  }
+  .header-swatch-strip{
+    display:flex;
+    gap:6px;
+    margin-top:24px;
+  }
+  .header-swatch-strip i{
+    display:block;
+    width:100%;
+    height:8px;
+    border-radius:4px;
+  }
+
+  /* ===== 商品区 ===== */
+  main{ padding: 28px 16px 120px; }
+  .section-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--muted);
+    letter-spacing:0.08em;
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .section-label::after{
+    content:'';
+    flex:1;
+    height:1px;
+    background:var(--line);
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  @media(min-width:480px){
+    .grid{ grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .card{
+    background:var(--surface);
+    border-radius:22px;
+    padding:12px 12px 16px;
+    border:1px solid var(--line);
+  }
+
+  /* 手机壳造型：圆角矩形 + 摄像头开孔，模拟真实产品轮廓 */
+  .case-shape{
+    position:relative;
+    aspect-ratio: 9/16.5;
+    border-radius:26px 26px 32px 32px;
+    overflow:hidden;
+    margin-bottom:12px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+  }
+  .cam-module{
+    position:absolute;
+    top:10px; left:10px;
+    width:34%;
+    aspect-ratio:1;
+    background:rgba(0,0,0,0.35);
+    border-radius:14px;
+    backdrop-filter: blur(2px);
+  }
+  .cam-module::before, .cam-module::after{
+    content:'';
+    position:absolute;
+    width:30%;
+    aspect-ratio:1;
+    border-radius:50%;
+    background:rgba(255,255,255,0.18);
+  }
+  .cam-module::before{ top:14%; left:14%; }
+  .cam-module::after{ bottom:14%; right:14%; }
+
+  /* 占位花色 —— 之后把这些替换成 <img src="你的实拍图.jpg"> 即可 */
+  .swatch-1{ background: linear-gradient(155deg, #FF5A5F 0%, #C9184A 100%); }
+  .swatch-2{ background: linear-gradient(155deg, #D4FF3F 0%, #7CC400 100%); }
+  .swatch-3{ background: linear-gradient(155deg, #B8A6FF 0%, #6C4CE0 100%); }
+  .swatch-4{
+    background:
+      radial-gradient(circle at 25% 25%, rgba(255,255,255,0.35) 0 6px, transparent 7px) 0 0/28px 28px,
+      linear-gradient(155deg, #2B2830 0%, #131215 100%);
+  }
+  .swatch-5{
+    background:
+      repeating-linear-gradient(115deg, rgba(255,255,255,0.12) 0 6px, transparent 6px 18px),
+      linear-gradient(155deg, #FFB088 0%, #FF5A5F 100%);
+  }
+  .swatch-6{ background: linear-gradient(155deg, #F5F3EF 0%, #C9C4D6 100%); }
+
+  .card h3{
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .card .meta{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .price{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:700;
+    font-size:15px;
+    color:var(--lime);
+  }
+  .tag{
+    font-size:11px;
+    color:var(--muted);
+    background:var(--surface-2);
+    padding:3px 8px;
+    border-radius:20px;
+  }
+
+  /* ===== 底部固定下单按钮 ===== */
+  .order-fab{
+    position:fixed;
+    left:16px; right:16px; bottom:18px;
+    background:var(--coral);
+    color:#131215;
+    font-weight:700;
+    font-size:16px;
+    text-align:center;
+    padding:16px;
+    border-radius:18px;
+    border:none;
+    box-shadow: 0 12px 30px rgba(255,90,95,0.35);
+    font-family:'Inter',sans-serif;
+  }
+
+  /* ===== 二维码弹层 ===== */
+  .modal-mask{
+    position:fixed; inset:0;
+    background:rgba(10,10,12,0.75);
+    display:none;
+    align-items:flex-end;
+    z-index:20;
+  }
+  .modal-mask.open{ display:flex; }
+  .modal{
+    width:100%;
+    background:var(--surface);
+    border-radius:26px 26px 0 0;
+    padding:28px 24px 34px;
+    text-align:center;
+    border-top:1px solid var(--line);
+  }
+  .modal h2{
+    font-family:'Archivo Black',sans-serif;
+    font-size:20px;
+    margin-bottom:6px;
+  }
+  .modal p{
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:20px;
+  }
+  .qr-placeholder{
+    width:200px; height:200px;
+    margin:0 auto 18px;
+    border-radius:16px;
+    border:1.5px dashed var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.6;
+    padding:16px;
+    background:var(--surface-2);
+  }
+  .close-btn{
+    display:inline-block;
+    color:var(--muted);
+    font-size:13px;
+    padding:10px 20px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="eyebrow">CHAOKE · PHONE CASE STUDIO</span>
+  <h1>手机壳<br><span>随手一壳</span>，就很有型。</h1>
+  <p class="desc">硅胶 / 透明 / 磨砂，多种材质手感实测。看中喜欢的款，扫码加微信直接下单。</p>
+  <div class="header-swatch-strip">
+    <i style="background:var(--coral)"></i>
+    <i style="background:var(--lime)"></i>
+    <i style="background:var(--lilac)"></i>
+    <i style="background:var(--text)"></i>
+  </div>
+</header>
+
+<main>
+  <div class="section-label">全部款式 · 6</div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="case-shape swatch-1"><div class="cam-module"></div></div>
+      <h3>热力珊瑚 磨砂壳</h3>
+      <div class="meta"><span class="price">¥39</span><span class="tag">磨砂</span></div>
+    </div>
+
+    <div class="card">
+      <div class="case-shape swatch-2"><div class="cam-module"></div></div>
+      <h3>荧光青柠 硅胶壳</h3>
+      <div class="meta"><span class="price">¥35</span><span class="tag">硅胶</span></div>
+    </div>
+
+    <div class="card">
+      <div class="case-shape swatch-3"><div class="cam-module"></div></div>
+      <h3>暮色紫雾 渐变壳</h3>
+      <div class="meta"><span class="price">¥42</span><span class="tag">渐变</span></div>
+    </div>
+
+    <div class="card">
+      <div class="case-shape swatch-4"><div class="cam-module"></div></div>
+      <h3>深空波点 透明壳</h3>
+      <div class="meta"><span class="price">¥29</span><span class="tag">透明</span></div>
+    </div>
+
+    <div class="card">
+      <div class="case-shape swatch-5"><div class="cam-module"></div></div>
+      <h3>晚霞条纹 磨砂壳</h3>
+      <div class="meta"><span class="price">¥39</span><span class="tag">磨砂</span></div>
+    </div>
+
+    <div class="card">
+      <div class="case-shape swatch-6"><div class="cam-module"></div></div>
+      <h3>云雾白 极简壳</h3>
+      <div class="meta"><span class="price">¥32</span><span class="tag">硅胶</span></div>
+    </div>
+
+  </div>
+</main>
+
+<button class="order-fab" onclick="document.getElementById('qrModal').classList.add('open')">扫码加微信下单 →</button>
+
+<div class="modal-mask" id="qrModal" onclick="if(event.target===this) this.classList.remove('open')">
+  <div class="modal">
+    <h2>加我微信下单</h2>
+    <p>扫描下方二维码，备注想要的款式即可</p>
+    <div class="qr-placeholder">在此放置你的<br>微信二维码图片<br><br>（上传图片后<br>替换这个位置）</div>
+    <div class="close-btn" onclick="document.getElementById('qrModal').classList.remove('open')">关闭</div>
+  </div>
+</div>
+
+</body>
+</html>
