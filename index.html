@@ -64,8 +64,64 @@
     border-radius:4px;
   }
 
+  /* ===== 筛选区 ===== */
+  .filter-bar{
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:var(--bg);
+    padding:16px 16px 12px;
+    border-bottom:1px solid var(--line);
+  }
+  .filter-group{ margin-bottom:12px; }
+  .filter-group:last-child{ margin-bottom:0; }
+  .filter-group-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    color:var(--muted);
+    letter-spacing:0.1em;
+    margin-bottom:8px;
+    display:block;
+  }
+  .chip-row{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    scrollbar-width:none;
+    padding-bottom:2px;
+  }
+  .chip-row::-webkit-scrollbar{ display:none; }
+  .chip{
+    flex:0 0 auto;
+    font-family:'Inter',sans-serif;
+    font-size:13px;
+    font-weight:600;
+    color:var(--muted);
+    background:var(--surface);
+    border:1px solid var(--line);
+    padding:8px 16px;
+    border-radius:20px;
+    white-space:nowrap;
+  }
+  .chip.active{
+    color:var(--bg);
+    background:var(--lime);
+    border-color:var(--lime);
+  }
+  .chip.active.model{
+    background:var(--coral);
+    border-color:var(--coral);
+  }
+  .result-count{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    margin-top:12px;
+  }
+  .result-count b{ color:var(--text); }
+
   /* ===== 商品区 ===== */
-  main{ padding: 28px 16px 120px; }
+  main{ padding: 20px 16px 120px; }
   .section-label{
     font-family:'JetBrains Mono',monospace;
     font-size:12px;
@@ -82,6 +138,14 @@
     height:1px;
     background:var(--line);
   }
+  .empty-state{
+    display:none;
+    text-align:center;
+    padding:60px 20px;
+    color:var(--muted);
+    font-size:14px;
+  }
+  .empty-state.show{ display:block; }
 
   .grid{
     display:grid;
@@ -247,47 +311,73 @@
   </div>
 </header>
 
-<main>
-  <div class="section-label">全部款式 · 6</div>
-  <div class="grid">
+<div class="filter-bar">
+  <div class="filter-group">
+    <span class="filter-group-label">按机型 MODEL</span>
+    <div class="chip-row" id="modelChips">
+      <button class="chip model active" data-model="全部">全部机型</button>
+      <button class="chip model" data-model="15pro">iPhone 15 Pro</button>
+      <button class="chip model" data-model="15">iPhone 15</button>
+      <button class="chip model" data-model="14">iPhone 14</button>
+      <button class="chip model" data-model="13">iPhone 13</button>
+    </div>
+  </div>
+  <div class="filter-group">
+    <span class="filter-group-label">按颜色 COLOR</span>
+    <div class="chip-row" id="colorChips">
+      <button class="chip color active" data-color="全部">全部颜色</button>
+      <button class="chip color" data-color="珊瑚">珊瑚红</button>
+      <button class="chip color" data-color="青柠">青柠绿</button>
+      <button class="chip color" data-color="紫雾">紫雾</button>
+      <button class="chip color" data-color="深空">深空黑</button>
+      <button class="chip color" data-color="云雾">云雾白</button>
+    </div>
+  </div>
+</div>
 
-    <div class="card">
+<main>
+  <div class="section-label">当前显示 · <span id="resultCount">6</span> 款</div>
+  <div class="grid" id="productGrid">
+
+    <div class="card" data-model="15pro" data-color="珊瑚">
       <div class="case-shape swatch-1"><div class="cam-module"></div></div>
       <h3>热力珊瑚 磨砂壳</h3>
       <div class="meta"><span class="price">¥39</span><span class="tag">磨砂</span></div>
     </div>
 
-    <div class="card">
+    <div class="card" data-model="15" data-color="青柠">
       <div class="case-shape swatch-2"><div class="cam-module"></div></div>
       <h3>荧光青柠 硅胶壳</h3>
       <div class="meta"><span class="price">¥35</span><span class="tag">硅胶</span></div>
     </div>
 
-    <div class="card">
+    <div class="card" data-model="15pro" data-color="紫雾">
       <div class="case-shape swatch-3"><div class="cam-module"></div></div>
       <h3>暮色紫雾 渐变壳</h3>
       <div class="meta"><span class="price">¥42</span><span class="tag">渐变</span></div>
     </div>
 
-    <div class="card">
+    <div class="card" data-model="14" data-color="深空">
       <div class="case-shape swatch-4"><div class="cam-module"></div></div>
       <h3>深空波点 透明壳</h3>
       <div class="meta"><span class="price">¥29</span><span class="tag">透明</span></div>
     </div>
 
-    <div class="card">
+    <div class="card" data-model="14" data-color="珊瑚">
       <div class="case-shape swatch-5"><div class="cam-module"></div></div>
       <h3>晚霞条纹 磨砂壳</h3>
       <div class="meta"><span class="price">¥39</span><span class="tag">磨砂</span></div>
     </div>
 
-    <div class="card">
+    <div class="card" data-model="13" data-color="云雾">
       <div class="case-shape swatch-6"><div class="cam-module"></div></div>
       <h3>云雾白 极简壳</h3>
       <div class="meta"><span class="price">¥32</span><span class="tag">硅胶</span></div>
     </div>
 
   </div>
+
+  <div class="empty-state" id="emptyState">这个组合暂时没有款式 <br>换个筛选条件试试 →</div>
 </main>
 
 <button class="order-fab" onclick="document.getElementById('qrModal').classList.add('open')">扫码加微信下单 →</button>
@@ -300,6 +390,47 @@
     <div class="close-btn" onclick="document.getElementById('qrModal').classList.remove('open')">关闭</div>
   </div>
 </div>
+
+<script>
+  // ===== 筛选逻辑：机型 + 颜色 双维度，可同时生效 =====
+  let currentModel = '全部';
+  let currentColor = '全部';
+
+  const cards = Array.from(document.querySelectorAll('#productGrid .card'));
+  const resultCount = document.getElementById('resultCount');
+  const emptyState = document.getElementById('emptyState');
+
+  function applyFilter(){
+    let visibleCount = 0;
+    cards.forEach(card => {
+      const matchModel = currentModel === '全部' || card.dataset.model === currentModel;
+      const matchColor = currentColor === '全部' || card.dataset.color === currentColor;
+      const show = matchModel && matchColor;
+      card.style.display = show ? '' : 'none';
+      if(show) visibleCount++;
+    });
+    resultCount.textContent = visibleCount;
+    emptyState.classList.toggle('show', visibleCount === 0);
+  }
+
+  document.getElementById('modelChips').addEventListener('click', e => {
+    const btn = e.target.closest('.chip');
+    if(!btn) return;
+    document.querySelectorAll('#modelChips .chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    currentModel = btn.dataset.model;
+    applyFilter();
+  });
+
+  document.getElementById('colorChips').addEventListener('click', e => {
+    const btn = e.target.closest('.chip');
+    if(!btn) return;
+    document.querySelectorAll('#colorChips .chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    currentColor = btn.dataset.color;
+    applyFilter();
+  });
+</script>
 
 </body>
 </html>
