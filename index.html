@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Febshop 快来选购吧</title>
+<title>潮壳 CHAOKE · 手机壳小店</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
@@ -22,7 +23,6 @@
   html,body{background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; -webkit-tap-highlight-color:transparent;}
   body{ -webkit-font-smoothing:antialiased; }
 
-  /* ===== 顶部 ===== */
   header{
     padding: 44px 20px 28px;
     position:relative;
@@ -52,23 +52,12 @@
     line-height:1.6;
     max-width:34ch;
   }
-  .header-swatch-strip{
-    display:flex;
-    gap:6px;
-    margin-top:24px;
-  }
-  .header-swatch-strip i{
-    display:block;
-    width:100%;
-    height:8px;
-    border-radius:4px;
-  }
+  .header-swatch-strip{ display:flex; gap:6px; margin-top:24px; }
+  .header-swatch-strip i{ display:block; width:100%; height:8px; border-radius:4px; }
 
   /* ===== 筛选区 ===== */
   .filter-bar{
-    position:sticky;
-    top:0;
-    z-index:10;
+    position:sticky; top:0; z-index:10;
     background:var(--bg);
     padding:16px 16px 12px;
     border-bottom:1px solid var(--line);
@@ -77,231 +66,96 @@
   .filter-group:last-child{ margin-bottom:0; }
   .filter-group-label{
     font-family:'JetBrains Mono',monospace;
-    font-size:10px;
-    color:var(--muted);
-    letter-spacing:0.1em;
-    margin-bottom:8px;
-    display:block;
+    font-size:10px; color:var(--muted); letter-spacing:0.1em;
+    margin-bottom:8px; display:block;
   }
-  .chip-row{
-    display:flex;
-    gap:8px;
-    overflow-x:auto;
-    scrollbar-width:none;
-    padding-bottom:2px;
-  }
+  .chip-row{ display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding-bottom:2px; }
   .chip-row::-webkit-scrollbar{ display:none; }
   .chip{
     flex:0 0 auto;
-    font-family:'Inter',sans-serif;
-    font-size:13px;
-    font-weight:600;
-    color:var(--muted);
-    background:var(--surface);
-    border:1px solid var(--line);
-    padding:8px 16px;
-    border-radius:20px;
-    white-space:nowrap;
+    font-family:'Inter',sans-serif; font-size:13px; font-weight:600;
+    color:var(--muted); background:var(--surface); border:1px solid var(--line);
+    padding:8px 16px; border-radius:20px; white-space:nowrap;
   }
-  .chip.active{
-    color:var(--bg);
-    background:var(--lime);
-    border-color:var(--lime);
-  }
-  .chip.active.model{
-    background:var(--coral);
-    border-color:var(--coral);
-  }
-  .result-count{
-    font-family:'JetBrains Mono',monospace;
-    font-size:11px;
-    color:var(--muted);
-    margin-top:12px;
-  }
-  .result-count b{ color:var(--text); }
+  .chip.active{ color:var(--bg); background:var(--lime); border-color:var(--lime); }
+  .chip.active.model{ background:var(--coral); border-color:var(--coral); }
 
-  /* ===== 商品区 ===== */
   main{ padding: 20px 16px 120px; }
   .section-label{
-    font-family:'JetBrains Mono',monospace;
-    font-size:12px;
-    color:var(--muted);
-    letter-spacing:0.08em;
-    margin-bottom:16px;
-    display:flex;
-    align-items:center;
-    gap:10px;
+    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted);
+    letter-spacing:0.08em; margin-bottom:16px; display:flex; align-items:center; gap:10px;
   }
-  .section-label::after{
-    content:'';
-    flex:1;
-    height:1px;
-    background:var(--line);
-  }
-  .empty-state{
-    display:none;
-    text-align:center;
-    padding:60px 20px;
-    color:var(--muted);
-    font-size:14px;
-  }
-  .empty-state.show{ display:block; }
+  .section-label::after{ content:''; flex:1; height:1px; background:var(--line); }
 
-  .grid{
-    display:grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+  .state-msg{
+    text-align:center; padding:60px 20px; color:var(--muted); font-size:14px; display:none;
   }
-  @media(min-width:480px){
-    .grid{ grid-template-columns: repeat(3, 1fr); }
-  }
+  .state-msg.show{ display:block; }
 
-  .card{
-    background:var(--surface);
-    border-radius:22px;
-    padding:12px 12px 16px;
-    border:1px solid var(--line);
-  }
+  .grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media(min-width:480px){ .grid{ grid-template-columns: repeat(3, 1fr); } }
 
-  /* 手机壳造型：圆角矩形 + 摄像头开孔，模拟真实产品轮廓 */
+  .card{ background:var(--surface); border-radius:22px; padding:12px 12px 16px; border:1px solid var(--line); }
+
   .case-shape{
-    position:relative;
-    aspect-ratio: 9/16.5;
-    border-radius:26px 26px 32px 32px;
-    overflow:hidden;
-    margin-bottom:12px;
+    position:relative; aspect-ratio: 9/16.5; border-radius:26px 26px 32px 32px;
+    overflow:hidden; margin-bottom:12px;
     box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+    background-size:cover; background-position:center;
   }
   .cam-module{
-    position:absolute;
-    top:10px; left:10px;
-    width:34%;
-    aspect-ratio:1;
-    background:rgba(0,0,0,0.35);
-    border-radius:14px;
-    backdrop-filter: blur(2px);
+    position:absolute; top:10px; left:10px; width:34%; aspect-ratio:1;
+    background:rgba(0,0,0,0.35); border-radius:14px; backdrop-filter: blur(2px);
   }
   .cam-module::before, .cam-module::after{
-    content:'';
-    position:absolute;
-    width:30%;
-    aspect-ratio:1;
-    border-radius:50%;
-    background:rgba(255,255,255,0.18);
+    content:''; position:absolute; width:30%; aspect-ratio:1; border-radius:50%; background:rgba(255,255,255,0.18);
   }
   .cam-module::before{ top:14%; left:14%; }
   .cam-module::after{ bottom:14%; right:14%; }
 
-  /* 占位花色 —— 之后把这些替换成 <img src="你的实拍图.jpg"> 即可 */
-  .swatch-1{ background: linear-gradient(155deg, #FF5A5F 0%, #C9184A 100%); }
-  .swatch-2{ background: linear-gradient(155deg, #D4FF3F 0%, #7CC400 100%); }
-  .swatch-3{ background: linear-gradient(155deg, #B8A6FF 0%, #6C4CE0 100%); }
-  .swatch-4{
-    background:
-      radial-gradient(circle at 25% 25%, rgba(255,255,255,0.35) 0 6px, transparent 7px) 0 0/28px 28px,
-      linear-gradient(155deg, #2B2830 0%, #131215 100%);
-  }
-  .swatch-5{
-    background:
-      repeating-linear-gradient(115deg, rgba(255,255,255,0.12) 0 6px, transparent 6px 18px),
-      linear-gradient(155deg, #FFB088 0%, #FF5A5F 100%);
-  }
-  .swatch-6{ background: linear-gradient(155deg, #F5F3EF 0%, #C9C4D6 100%); }
-
-  .card h3{
-    font-size:14px;
-    font-weight:600;
-    margin-bottom:6px;
-  }
-  .card .meta{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-  }
-  .price{
-    font-family:'JetBrains Mono',monospace;
-    font-weight:700;
-    font-size:15px;
-    color:var(--lime);
-  }
-  .tag{
-    font-size:11px;
-    color:var(--muted);
-    background:var(--surface-2);
-    padding:3px 8px;
-    border-radius:20px;
+  .sold-out-tag{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    background:rgba(19,18,21,0.72);
+    font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:700; color:var(--text);
+    letter-spacing:0.05em;
   }
 
-  /* ===== 底部固定下单按钮 ===== */
+  .card h3{ font-size:14px; font-weight:600; margin-bottom:6px; }
+  .card .meta{ display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; }
+  .price{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:15px; color:var(--lime); }
+  .tag{ font-size:11px; color:var(--muted); background:var(--surface-2); padding:3px 8px; border-radius:20px; }
+  .stock-line{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); }
+  .stock-line.low{ color:var(--coral); }
+
   .order-fab{
-    position:fixed;
-    left:16px; right:16px; bottom:18px;
-    background:var(--coral);
-    color:#131215;
-    font-weight:700;
-    font-size:16px;
-    text-align:center;
-    padding:16px;
-    border-radius:18px;
-    border:none;
-    box-shadow: 0 12px 30px rgba(255,90,95,0.35);
-    font-family:'Inter',sans-serif;
+    position:fixed; left:16px; right:16px; bottom:18px;
+    background:var(--coral); color:#131215; font-weight:700; font-size:16px;
+    text-align:center; padding:16px; border-radius:18px; border:none;
+    box-shadow: 0 12px 30px rgba(255,90,95,0.35); font-family:'Inter',sans-serif;
   }
 
-  /* ===== 二维码弹层 ===== */
   .modal-mask{
-    position:fixed; inset:0;
-    background:rgba(10,10,12,0.75);
-    display:none;
-    align-items:flex-end;
-    z-index:20;
+    position:fixed; inset:0; background:rgba(10,10,12,0.75); display:none; align-items:flex-end; z-index:20;
   }
   .modal-mask.open{ display:flex; }
   .modal{
-    width:100%;
-    background:var(--surface);
-    border-radius:26px 26px 0 0;
-    padding:28px 24px 34px;
-    text-align:center;
-    border-top:1px solid var(--line);
+    width:100%; background:var(--surface); border-radius:26px 26px 0 0;
+    padding:28px 24px 34px; text-align:center; border-top:1px solid var(--line);
   }
-  .modal h2{
-    font-family:'Archivo Black',sans-serif;
-    font-size:20px;
-    margin-bottom:6px;
-  }
-  .modal p{
-    color:var(--muted);
-    font-size:13px;
-    margin-bottom:20px;
-  }
+  .modal h2{ font-family:'Archivo Black',sans-serif; font-size:20px; margin-bottom:6px; }
+  .modal p{ color:var(--muted); font-size:13px; margin-bottom:20px; }
   .qr-placeholder{
-    width:200px; height:200px;
-    margin:0 auto 18px;
-    border-radius:16px;
-    border:1.5px dashed var(--line);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--muted);
-    font-size:12px;
-    line-height:1.6;
-    padding:16px;
-    background:var(--surface-2);
+    width:200px; height:200px; margin:0 auto 18px; border-radius:16px;
+    border:none; padding:0; background:transparent;
   }
-  .close-btn{
-    display:inline-block;
-    color:var(--muted);
-    font-size:13px;
-    padding:10px 20px;
-  }
+  .close-btn{ display:inline-block; color:var(--muted); font-size:13px; padding:10px 20px; }
 </style>
 </head>
 <body>
 
 <header>
-  <span class="eyebrow">Feb·shop</span>
-  <h1>Find the Right Case for Your Phone</h1>
+  <span class="eyebrow">CHAOKE · PHONE CASE STUDIO</span>
+  <h1>手机壳<br><span>随手一壳</span>，就很有型。</h1>
   <p class="desc">硅胶 / 透明 / 磨砂，多种材质手感实测。看中喜欢的款，扫码加微信直接下单。</p>
   <div class="header-swatch-strip">
     <i style="background:var(--coral)"></i>
@@ -314,70 +168,19 @@
 <div class="filter-bar">
   <div class="filter-group">
     <span class="filter-group-label">按机型 MODEL</span>
-    <div class="chip-row" id="modelChips">
-      <button class="chip model active" data-model="全部">全部机型</button>
-      <button class="chip model" data-model="15pro">iPhone 15 Pro</button>
-      <button class="chip model" data-model="15">iPhone 15</button>
-      <button class="chip model" data-model="14">iPhone 14</button>
-      <button class="chip model" data-model="13">iPhone 13</button>
-    </div>
+    <div class="chip-row" id="modelChips"></div>
   </div>
   <div class="filter-group">
     <span class="filter-group-label">按颜色 COLOR</span>
-    <div class="chip-row" id="colorChips">
-      <button class="chip color active" data-color="全部">全部颜色</button>
-      <button class="chip color" data-color="珊瑚">珊瑚红</button>
-      <button class="chip color" data-color="青柠">青柠绿</button>
-      <button class="chip color" data-color="紫雾">紫雾</button>
-      <button class="chip color" data-color="深空">深空黑</button>
-      <button class="chip color" data-color="云雾">云雾白</button>
-    </div>
+    <div class="chip-row" id="colorChips"></div>
   </div>
 </div>
 
 <main>
-  <div class="section-label">当前显示 · <span id="resultCount">6</span> 款</div>
-  <div class="grid" id="productGrid">
-
-    <div class="card" data-model="15pro" data-color="珊瑚">
-      <div class="case-shape swatch-1"><div class="cam-module"></div></div>
-      <h3>热力珊瑚 磨砂壳</h3>
-      <div class="meta"><span class="price">¥39</span><span class="tag">磨砂</span></div>
-    </div>
-
-    <div class="card" data-model="15" data-color="青柠">
-      <div class="case-shape swatch-2"><div class="cam-module"></div></div>
-      <h3>荧光青柠 硅胶壳</h3>
-      <div class="meta"><span class="price">¥35</span><span class="tag">硅胶</span></div>
-    </div>
-
-    <div class="card" data-model="15pro" data-color="紫雾">
-      <div class="case-shape swatch-3"><div class="cam-module"></div></div>
-      <h3>暮色紫雾 渐变壳</h3>
-      <div class="meta"><span class="price">¥42</span><span class="tag">渐变</span></div>
-    </div>
-
-    <div class="card" data-model="14" data-color="深空">
-      <div class="case-shape swatch-4"><div class="cam-module"></div></div>
-      <h3>深空波点 透明壳</h3>
-      <div class="meta"><span class="price">¥29</span><span class="tag">透明</span></div>
-    </div>
-
-    <div class="card" data-model="14" data-color="珊瑚">
-      <div class="case-shape swatch-5"><div class="cam-module"></div></div>
-      <h3>晚霞条纹 磨砂壳</h3>
-      <div class="meta"><span class="price">¥39</span><span class="tag">磨砂</span></div>
-    </div>
-
-    <div class="card" data-model="13" data-color="云雾">
-      <div class="case-shape swatch-6"><div class="cam-module"></div></div>
-      <h3>云雾白 极简壳</h3>
-      <div class="meta"><span class="price">¥32</span><span class="tag">硅胶</span></div>
-    </div>
-
-  </div>
-
-  <div class="empty-state" id="emptyState">这个组合暂时没有款式 <br>换个筛选条件试试 →</div>
+  <div class="section-label">当前显示 · <span id="resultCount">0</span> 款</div>
+  <div class="grid" id="productGrid"></div>
+  <div class="state-msg" id="loadingMsg">加载商品中…</div>
+  <div class="state-msg" id="emptyState">这个组合暂时没有款式<br>换个筛选条件试试 →</div>
 </main>
 
 <button class="order-fab" onclick="document.getElementById('qrModal').classList.add('open')">扫码加微信下单 →</button>
@@ -386,51 +189,130 @@
   <div class="modal">
     <h2>加我微信下单</h2>
     <p>扫描下方二维码，备注想要的款式即可</p>
-    <div class="qr-placeholder" style="border:none; padding:0; background:transparent;">
+    <div class="qr-placeholder">
       <img src="wechatqr.png" alt="微信二维码" style="width:100%; height:100%; object-fit:contain; border-radius:12px;">
     </div>
     <div class="close-btn" onclick="document.getElementById('qrModal').classList.remove('open')">关闭</div>
   </div>
 </div>
 
+<!-- Firebase SDK（compat 版本，纯 <script> 引入，手机上不需要任何编译工具） -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
-  // ===== 筛选逻辑：机型 + 颜色 双维度，可同时生效 =====
+  const firebaseConfig = {
+    apiKey: "AIzaSyDSBnQWVNRrhuX2Bv5lfq6aBUe-rMEOQWE",
+    authDomain: "febshop-67382.firebaseapp.com",
+    projectId: "febshop-67382",
+    storageBucket: "febshop-67382.firebasestorage.app",
+    messagingSenderId: "426734023224",
+    appId: "1:426734023224:web:b677aa7a9134cd152deccd"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  let allProducts = [];
   let currentModel = '全部';
   let currentColor = '全部';
 
-  const cards = Array.from(document.querySelectorAll('#productGrid .card'));
-  const resultCount = document.getElementById('resultCount');
-  const emptyState = document.getElementById('emptyState');
+  const modelChipsEl = document.getElementById('modelChips');
+  const colorChipsEl = document.getElementById('colorChips');
+  const gridEl = document.getElementById('productGrid');
+  const resultCountEl = document.getElementById('resultCount');
+  const emptyStateEl = document.getElementById('emptyState');
+  const loadingMsgEl = document.getElementById('loadingMsg');
 
-  function applyFilter(){
-    let visibleCount = 0;
-    cards.forEach(card => {
-      const matchModel = currentModel === '全部' || card.dataset.model === currentModel;
-      const matchColor = currentColor === '全部' || card.dataset.color === currentColor;
-      const show = matchModel && matchColor;
-      card.style.display = show ? '' : 'none';
-      if(show) visibleCount++;
-    });
-    resultCount.textContent = visibleCount;
-    emptyState.classList.toggle('show', visibleCount === 0);
+  function escapeHtml(str){
+    return String(str ?? '').replace(/[&<>"']/g, s => ({
+      '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+    }[s]));
   }
 
-  document.getElementById('modelChips').addEventListener('click', e => {
+  // 没有实拍图时，用颜色名生成一个渐变色块，保证没图片也不难看
+  function colorToGradient(colorName){
+    const c = (colorName || '').toLowerCase();
+    if(/红|珊瑚|coral|red/.test(c)) return 'linear-gradient(155deg,#FF5A5F 0%,#C9184A 100%)';
+    if(/绿|青柠|lime|green/.test(c)) return 'linear-gradient(155deg,#D4FF3F 0%,#7CC400 100%)';
+    if(/紫|lilac|purple/.test(c)) return 'linear-gradient(155deg,#B8A6FF 0%,#6C4CE0 100%)';
+    if(/黑|深空|black/.test(c)) return 'linear-gradient(155deg,#2B2830 0%,#131215 100%)';
+    if(/白|云雾|white/.test(c)) return 'linear-gradient(155deg,#F5F3EF 0%,#C9C4D6 100%)';
+    if(/蓝|blue/.test(c)) return 'linear-gradient(155deg,#8FCBFF 0%,#3D7DD6 100%)';
+    if(/黄|橙|orange|yellow/.test(c)) return 'linear-gradient(155deg,#FFB088 0%,#FF5A5F 100%)';
+    if(/粉|pink/.test(c)) return 'linear-gradient(155deg,#FFC2D6 0%,#FF6FA5 100%)';
+    return 'linear-gradient(155deg,#3A3740 0%,#1c1a1f 100%)';
+  }
+
+  function renderFilters(){
+    const models = ['全部', ...new Set(allProducts.map(p => p.model).filter(Boolean))];
+    const colors = ['全部', ...new Set(allProducts.map(p => p.color).filter(Boolean))];
+    if(!models.includes(currentModel)) currentModel = '全部';
+    if(!colors.includes(currentColor)) currentColor = '全部';
+
+    modelChipsEl.innerHTML = models.map(m => `
+      <button class="chip model ${m===currentModel?'active':''}" data-model="${escapeHtml(m)}">${m==='全部'?'全部机型':escapeHtml(m)}</button>
+    `).join('');
+    colorChipsEl.innerHTML = colors.map(c => `
+      <button class="chip color ${c===currentColor?'active':''}" data-color="${escapeHtml(c)}">${c==='全部'?'全部颜色':escapeHtml(c)}</button>
+    `).join('');
+  }
+
+  function cardHtml(p){
+    const soldOut = Number(p.stock) <= 0;
+    const bg = p.image ? `background-image:url('${escapeHtml(p.image)}')` : `background:${colorToGradient(p.color)}`;
+    const stockLine = soldOut
+      ? `<div class="stock-line low">暂时补货中</div>`
+      : (Number(p.stock) <= 3 ? `<div class="stock-line low">仅剩 ${escapeHtml(p.stock)} 件</div>` : `<div class="stock-line">库存 ${escapeHtml(p.stock)} 件</div>`);
+    return `
+      <div class="card">
+        <div class="case-shape" style="${bg}">
+          <div class="cam-module"></div>
+          ${soldOut ? `<div class="sold-out-tag">补货中</div>` : ''}
+        </div>
+        <h3>${escapeHtml(p.name || '未命名款式')}</h3>
+        <div class="meta">
+          <span class="price">¥${escapeHtml(p.price ?? '-')}</span>
+          <span class="tag">${escapeHtml(p.material || '')}</span>
+        </div>
+        ${stockLine}
+      </div>
+    `;
+  }
+
+  function renderProducts(){
+    const filtered = allProducts.filter(p =>
+      (currentModel === '全部' || p.model === currentModel) &&
+      (currentColor === '全部' || p.color === currentColor)
+    );
+    resultCountEl.textContent = filtered.length;
+    emptyStateEl.classList.toggle('show', allProducts.length > 0 && filtered.length === 0);
+    gridEl.innerHTML = filtered.map(cardHtml).join('');
+  }
+
+  modelChipsEl.addEventListener('click', e => {
     const btn = e.target.closest('.chip');
     if(!btn) return;
-    document.querySelectorAll('#modelChips .chip').forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
     currentModel = btn.dataset.model;
-    applyFilter();
+    renderFilters();
+    renderProducts();
+  });
+  colorChipsEl.addEventListener('click', e => {
+    const btn = e.target.closest('.chip');
+    if(!btn) return;
+    currentColor = btn.dataset.color;
+    renderFilters();
+    renderProducts();
   });
 
-  document.getElementById('colorChips').addEventListener('click', e => {
-    const btn = e.target.closest('.chip');
-    if(!btn) return;
-    document.querySelectorAll('#colorChips .chip').forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
-    currentColor = btn.dataset.color;
-    applyFilter();
+  // 实时监听 products 集合：后台改了任何字段，这里几乎立刻更新
+  db.collection('products').onSnapshot(snapshot => {
+    loadingMsgEl.classList.remove('show');
+    allProducts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    renderFilters();
+    renderProducts();
+  }, err => {
+    loadingMsgEl.textContent = '商品加载失败，请检查网络后刷新';
+    loadingMsgEl.classList.add('show');
+    console.error(err);
   });
 </script>
 
