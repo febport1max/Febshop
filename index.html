@@ -386,7 +386,9 @@
   <div class="modal">
     <h2>加我微信下单</h2>
     <p>扫描下方二维码，备注想要的款式即可</p>
-    <div class="qr-placeholder">在此放置你的<br>微信二维码图片<br><br>（上传图片后<br>替换这个位置）</div>
+    <div class="qr-placeholder" style="border:none; padding:0; background:transparent;">
+      <img src="wechatqr.png" alt="微信二维码" style="width:100%; height:100%; object-fit:contain; border-radius:12px;">
+    </div>
     <div class="close-btn" onclick="document.getElementById('qrModal').classList.remove('open')">关闭</div>
   </div>
 </div>
