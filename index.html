@@ -308,11 +308,20 @@
     allProducts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     renderFilters();
     renderProducts();
-  }, err => {
-    loadingMsgEl.textContent = '商品加载失败，请检查网络后刷新';
-    loadingMsgEl.classList.add('show');
-    console.error(err);
-  });
+}, err => {
+  alert(
+    "Firestore 错误\n\n" +
+    "错误代码：" + err.code + "\n\n" +
+    "错误信息：" + err.message
+  );
+
+  loadingMsgEl.textContent =
+    err.code + "：" + err.message;
+
+  loadingMsgEl.classList.add('show');
+
+  console.error(err);
+});
 </script>
 
 </body>
